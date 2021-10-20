@@ -1,5 +1,5 @@
 <div class="container">
-    <form method='POST' action="/magento2/blog/index/save">
+    <form method='POST' action="<?php echo $block->getBaseUrl(); ?>/blog/index/save">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" value="<?php $post = $block->getPost();
