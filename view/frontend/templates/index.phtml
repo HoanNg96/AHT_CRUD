@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <?php
-    $posts = $block->getPosts();
+    $posts = $block->getPosts(); //use function in Block
     foreach ($posts as $post) {
         echo "<tr style=\"border: 1px solid #dddddd; text-align: left; padding: 8px;\">";
         echo "<td>" . $post->getId() . "</td>";

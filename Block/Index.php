@@ -22,6 +22,7 @@ class Index extends \Magento\Framework\View\Element\Template
     }
     public function getPosts()
     {
+        // use repository to do bussiness job
         $collection = $this->postRepository->getList();
         // $collection = $post->getCollection();
         return $collection;
