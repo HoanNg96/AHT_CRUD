@@ -4,15 +4,12 @@ namespace AHT\Blog\Block;
 
 class Index extends \Magento\Framework\View\Element\Template
 {
-    /* private $postFactory; */
     private $postRepository;
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        /* \AHT\Blog\Model\PostFactory $postFactory, */
         \AHT\Blog\Model\PostRepository $postRepository
     ) {
         parent::__construct($context);
-        /* $this->postFactory = $postFactory; */
         $this->postRepository = $postRepository;
     }
 
@@ -24,7 +21,6 @@ class Index extends \Magento\Framework\View\Element\Template
     {
         // use repository to do bussiness job
         $collection = $this->postRepository->getList();
-        // $collection = $post->getCollection();
         return $collection;
     }
 }

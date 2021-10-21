@@ -33,16 +33,19 @@ class Save extends \Magento\Framework\App\Action\Action
         $this->_postFactory = $postFactory;
         $this->_postRepository = $postRepository;
         $this->_coreRegistry = $coreRegistry;
-        $this->resultRedirect = $result;
-        $this->_cacheTypeList = $cacheTypeList;
-        $this->_cacheFrontendPool = $cacheFrontendPool;
+        $this->resultRedirect = $result;    //for redirect url
+        $this->_cacheTypeList = $cacheTypeList; //for clear cache
+        $this->_cacheFrontendPool = $cacheFrontendPool; //for clear cache
 
         return parent::__construct($context);
     }
 
     public function execute()
-    {
+    {   
+        // create post object
         $post = $this->_postFactory->create();
+
+        //  catch button form submit
         if (isset($_POST['editbtn'])) {
             $post->setId($_POST['editbtn']);
             $post->setName($_POST['name']);
@@ -61,6 +64,7 @@ class Save extends \Magento\Framework\App\Action\Action
 
         $this->_postRepository->save($post);
 
+        //  clear cache
         $types = array('config', 'layout', 'block_html', 'collections', 'reflection', 'db_ddl', 'compiled_config', 'eav', 'config_integration', 'config_integration_api', 'full_page', 'translate', 'config_webservice', 'vertex');
         foreach ($types as $type) {
             $this->_cacheTypeList->cleanType($type);
@@ -69,6 +73,7 @@ class Save extends \Magento\Framework\App\Action\Action
             $cacheFrontend->getBackend()->clean();
         }
 
+        //  redirect url
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setPath('blog/index/index');
         return $resultRedirect;
