@@ -17,6 +17,7 @@ class Index extends \Magento\Framework\View\Element\Template
     {
         return __('AHT Blog module');
     }
+
     public function getPosts()
     {
         // use repository to do bussiness job

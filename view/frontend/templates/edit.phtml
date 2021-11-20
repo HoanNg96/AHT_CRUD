@@ -1,23 +1,42 @@
+<?php
+
+/** @var \AHT\Blog\Block\Edit $block */
+$post = $block->getCurrentPost();
+?>
+
 <div class="container">
-    <form method='POST' action="<?php echo $block->getBaseUrl(); ?>/blog/index/save">
+<h3 style="text-align: center;">Edit</h3>
+    <form method='POST' action="<?= $block->escapeHtml($block->getBaseUrl()); ?>/blog/index/save">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name" value="<?php $post = $block->getPost();
-                                                                                                            echo $post->getName(); ?>">
+            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="<?php if ($post->getName()) :
+                                                                                                                echo $block->escapeHtml($post->getName());
+                                                                                                            endif; ?>">
         </div>
-
+        <br>
         <div class="form-group">
             <label for="phone">Url Key</label>
-            <input type="text" class="form-control" id="url" placeholder="Enter a phone" name="url" value="<?php if (isset($post['url_key'])) echo $post->getUrlKey(); ?>">
+            <input type="text" class="form-control" id="url" placeholder="Enter url-key" name="url" value="<?php if ($post->getUrlKey()) :
+                                                                                                                echo $block->escapeHtml($post->getUrlKey());
+                                                                                                            endif; ?>">
         </div>
+        <br>
         <div class="form-group">
             <label for="organization">Content</label>
-            <input type="text" class="form-control" id="content" placeholder="Enter a organization" name="content" value="<?php if (isset($post['content'])) echo $post->getContent(); ?>">
+            <input type="text" class="form-control" id="content" placeholder="Enter Content" name="content" value="<?php if ($post->getContent()) :
+                                                                                                                        echo $block->escapeHtml($post->getContent());
+                                                                                                                    endif; ?>">
         </div>
+        <br>
         <div class="form-group">
             <label for="phone">Status</label>
-            <input type="text" class="form-control" id="status" placeholder="Enter a phone" name="status" value="<?php if (isset($post['status'])) echo $post->getStatus(); ?>">
+            <input type="text" class="form-control" id="status" placeholder="Enter 0/1" name="status" value="<?php if ($post->getStatus()) :
+                                                                                                                    echo $block->escapeHtml($post->getStatus());
+                                                                                                                endif; ?>">
         </div>
-        <button type="submit" class="btn btn-primary" name="editbtn" value="<?php if (isset($post['post_id'])) echo $post->getId(); ?>">Submit</button>
+        <br>
+        <button type="submit" class="btn btn-primary" name="editbtn" value="<?php if ($post->getId()) :
+                                                                                echo $block->escapeHtml($post->getId());
+                                                                            endif; ?>">Submit</button>
     </form>
 </div>

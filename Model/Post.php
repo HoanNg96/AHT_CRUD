@@ -28,4 +28,39 @@ class Post extends \Magento\Framework\Model\AbstractModel implements \Magento\Fr
 
 		return $values;
 	}
+
+	public function getName()
+	{
+		return $this->getData('name');
+	}
+
+	public function getUrlKey()
+	{
+		return $this->getData('url_key');
+	}
+
+	public function getImage()
+	{
+		return $this->getData('image');
+	}
+
+	public function getContent()
+	{
+		return $this->getData('content');
+	}
+
+	public function getStatus()
+	{
+		return $this->getData('status');
+	}
+
+	public function getCreatedAt()
+	{
+		return $this->getData('created_at');
+	}
+
+	public function getUpdatedAt()
+	{
+		return $this->getData('updated_at');
+	}
 }

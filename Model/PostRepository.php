@@ -10,6 +10,7 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use AHT\Blog\Model\ResourceModel\Post as ResourcePost;
 use AHT\Blog\Model\ResourceModel\Post\CollectionFactory as PostCollectionFactory;
+use Laminas\Code\Generator\DocBlock\Tag\VarTag;
 
 /**
  * Class PostRepository
@@ -43,8 +44,6 @@ class PostRepository implements PostRepositoryInterface
      * @param PostCollectionFactory $PostCollectionFactory
      * @param Data\PostSearchResultsInterfaceFactory $searchResultsFactory
      */
-    private $collectionProcessor;
-
     public function __construct(
         ResourcePost $resource,
         PostFactory $PostFactory,
@@ -67,7 +66,6 @@ class PostRepository implements PostRepositoryInterface
      */
     public function save(\AHT\Blog\Api\Data\PostInterface $Post)
     {
-
         try {
             $this->resource->save($Post);
         } catch (\Exception $exception) {
@@ -99,14 +97,10 @@ class PostRepository implements PostRepositoryInterface
     /**
      * Load Post data collection by given search criteria
      *
-     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $criteria
      * @return \AHT\Blog\Api\Data\PostSearchResultsInterface
      */
     public function getList()
     {
-        /** @var \AHT\Blog\Model\ResourceModel\Post\Collection $collection */
         $collection = $this->PostCollectionFactory->create();
         return $collection;
     }
@@ -143,4 +137,5 @@ class PostRepository implements PostRepositoryInterface
     {
         return $this->delete($this->getById($PostId));
     }
+
 }

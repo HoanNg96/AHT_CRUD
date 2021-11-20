@@ -1,22 +1,31 @@
+<?php
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
 <div class="container">
-    <form method='POST' action="<?php echo $block->getBaseUrl(); ?>/blog/index/save">
+    <h3 style="text-align: center;">Create</h3>
+    <form method='POST' action="<?= $block->escapeHtml($block->getBaseUrl()); ?>blog/index/save">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter a name" name="name">
+            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
         </div>
-
+        <br>
         <div class="form-group">
             <label for="phone">Url Key</label>
-            <input type="text" class="form-control" id="url" placeholder="Enter a phone" name="url">
+            <input type="text" class="form-control" id="url" placeholder="Enter url-key" name="url">
         </div>
+        <br>
         <div class="form-group">
             <label for="organization">Content</label>
-            <input type="text" class="form-control" id="content" placeholder="Enter a organization" name="content">
+            <input type="text" class="form-control" id="content" placeholder="Enter content" name="content">
         </div>
+        <br>
         <div class="form-group">
             <label for="phone">Status</label>
-            <input type="text" class="form-control" id="status" placeholder="Enter a phone" name="status">
+            <input type="text" class="form-control" id="status" placeholder="Enter 0/1" name="status">
         </div>
+        <br>
         <button type="submit" class="btn btn-primary" name="createbtn">Submit</button>
     </form>
 </div>

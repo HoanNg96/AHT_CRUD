@@ -4,35 +4,29 @@ namespace AHT\Blog\Controller\Index;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
-    protected $_pageFactory;
 
     protected $_postFactory;
 
     protected $_postRepository;
-
-    protected $_coreRegistry;
 
     protected $resultRedirect;
 
     protected $urlInterface;
 
     private $_cacheTypeList;
+
     private $_cacheFrontendPool;
 
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \AHT\Blog\Model\PostFactory $postFactory,
         \AHT\Blog\Model\PostRepository $postRepository,
-        \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\Controller\ResultFactory $result,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
         \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool
     ) {
-        $this->_pageFactory = $pageFactory;
         $this->_postFactory = $postFactory;
         $this->_postRepository = $postRepository;
-        $this->_coreRegistry = $coreRegistry;
         $this->resultRedirect = $result;    //for redirect url
         $this->_cacheTypeList = $cacheTypeList; //for clear cache
         $this->_cacheFrontendPool = $cacheFrontendPool; //for clear cache
@@ -41,23 +35,24 @@ class Save extends \Magento\Framework\App\Action\Action
     }
 
     public function execute()
-    {   
-        // create post object
-        $post = $this->_postFactory->create();
-
+    {
         //  catch button form submit
         if (isset($_POST['editbtn'])) {
-            $post->setId($_POST['editbtn']);
-            $post->setName($_POST['name']);
-            $post->setUrlKey($_POST['url']);
-            $post->setContent($_POST['content']);
-            $post->setStatus($_POST['status']);
+            $post = $this->_postRepository->getById(filter_input(INPUT_POST, 'editbtn'));
+
+            $post->setId(filter_input(INPUT_POST, 'editbtn'));
+            $post->setName(filter_input(INPUT_POST, 'name'));
+            $post->setUrlKey(filter_input(INPUT_POST, 'url'));
+            $post->setContent(filter_input(INPUT_POST, 'content'));
+            $post->setStatus(filter_input(INPUT_POST, 'status'));
             $post->setUpdatedAt(date('Y-m-d H:i:s'));
         } elseif (isset($_POST['createbtn'])) {
-            $post->setName($_POST['name']);
-            $post->setUrlKey($_POST['url']);
-            $post->setContent($_POST['content']);
-            $post->setStatus($_POST['status']);
+            $post = $this->_postFactory->create();
+
+            $post->setName(filter_input(INPUT_POST, 'name'));
+            $post->setUrlKey(filter_input(INPUT_POST, 'url'));
+            $post->setContent(filter_input(INPUT_POST, 'content'));
+            $post->setStatus(filter_input(INPUT_POST, 'status'));
             $post->setCreatedAt(date('Y-m-d H:i:s'));
             $post->setUpdatedAt(date('Y-m-d H:i:s'));
         }
@@ -65,7 +60,21 @@ class Save extends \Magento\Framework\App\Action\Action
         $this->_postRepository->save($post);
 
         //  clear cache
-        $types = array('config', 'layout', 'block_html', 'collections', 'reflection', 'db_ddl', 'compiled_config', 'eav', 'config_integration', 'config_integration_api', 'full_page', 'translate', 'config_webservice', 'vertex');
+        $types = [
+            'config',
+            'layout',
+            'block_html',
+            'collections',
+            'reflection',
+            'db_ddl',
+            'compiled_config',
+            'eav',
+            'config_integration',
+            'config_integration_api',
+            'full_page', 'translate',
+            'config_webservice',
+            'vertex'
+        ];
         foreach ($types as $type) {
             $this->_cacheTypeList->cleanType($type);
         }
