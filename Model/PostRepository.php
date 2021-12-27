@@ -2,15 +2,13 @@
 
 namespace AHT\Blog\Model;
 
-use AHT\Blog\Api\Data;
+use AHT\Blog\Model\PostFactory;
 use AHT\Blog\Api\PostRepositoryInterface;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use AHT\Blog\Model\ResourceModel\Post as ResourcePost;
 use AHT\Blog\Model\ResourceModel\Post\CollectionFactory as PostCollectionFactory;
-use Laminas\Code\Generator\DocBlock\Tag\VarTag;
 
 /**
  * Class PostRepository
@@ -24,7 +22,7 @@ class PostRepository implements PostRepositoryInterface
     protected $resource;
 
     /**
-     * @var PostFactory
+     * @var AHT\Blog\Model\PostFactory
      */
     protected $PostFactory;
 
@@ -34,34 +32,25 @@ class PostRepository implements PostRepositoryInterface
     protected $PostCollectionFactory;
 
     /**
-     * @var Data\PostSearchResultsInterfaceFactory
-     */
-    protected $searchResultsFactory;
-    /**
      * @param ResourcePost $resource
      * @param PostFactory $PostFactory
-     * @param Data\PostInterfaceFactory $dataPostFactory
      * @param PostCollectionFactory $PostCollectionFactory
-     * @param Data\PostSearchResultsInterfaceFactory $searchResultsFactory
      */
     public function __construct(
         ResourcePost $resource,
         PostFactory $PostFactory,
-        Data\PostInterfaceFactory $dataPostFactory,
         PostCollectionFactory $PostCollectionFactory
     ) {
         $this->resource = $resource;
         $this->PostFactory = $PostFactory;
         $this->PostCollectionFactory = $PostCollectionFactory;
-        // $this->searchResultsFactory = $searchResultsFactory;
-        // $this->collectionProcessor = $collectionProcessor ?: $this->getCollectionProcessor();
     }
 
     /**
      * Save Post data
      *
      * @param \AHT\Blog\Api\Data\PostInterface $Post
-     * @return Post
+     * @return \AHT\Blog\Api\Data\PostInterface
      * @throws CouldNotSaveException
      */
     public function save(\AHT\Blog\Api\Data\PostInterface $Post)
@@ -81,7 +70,7 @@ class PostRepository implements PostRepositoryInterface
      * Load Post data by given Post Identity
      *
      * @param string $PostId
-     * @return Post
+     * @return \AHT\Blog\Api\Data\PostInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getById($PostId)
@@ -95,9 +84,9 @@ class PostRepository implements PostRepositoryInterface
     }
 
     /**
-     * Load Post data collection by given search criteria
+     * Load Post data collection
      *
-     * @return \AHT\Blog\Api\Data\PostSearchResultsInterface
+     * @return \AHT\Blog\Api\Data\PostInterface
      */
     public function getList()
     {

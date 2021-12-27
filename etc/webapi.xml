@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- url and method -->
+    <route url="/V1/blog" method="GET">
+        <!-- class and method class -->
+        <service class="AHT\Blog\Api\PostRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- PostId is the argument -->
+    <route url="/V1/blog/:PostId" method="GET">
+        <!-- getById is the method -->
+        <service class="AHT\Blog\Api\PostRepositoryInterface" method="getById"/>
+        <!-- acl -->
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

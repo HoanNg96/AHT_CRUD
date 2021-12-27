@@ -2,8 +2,6 @@
 
 namespace AHT\Blog\Api;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
-
 interface PostRepositoryInterface
 {
     /**
@@ -11,25 +9,21 @@ interface PostRepositoryInterface
      *
      * @param \AHT\Blog\Api\Data\PostInterface $Post
      * @return \AHT\Blog\Api\Data\PostInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function save(\AHT\Blog\Api\Data\PostInterface $Post);
 
     /**
-     * Retrieve Post.
+     * Retrieve Post by id.
      *
      * @param int $PostId
      * @return \AHT\Blog\Api\Data\PostInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getById($PostId);
 
     /**
-     * Retrieve Posts matching the specified criteria.
+     * Retrieve Posts.
      *
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \AHT\Blog\Api\Data\PostSearchResultsInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return \AHT\Blog\Api\Data\PostInterface
      */
     public function getList();
 
@@ -37,8 +31,7 @@ interface PostRepositoryInterface
      * Delete Post.
      *
      * @param \AHT\Blog\Api\Data\PostInterface $Post
-     * @return bool true on success
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return bool
      */
     public function delete(\AHT\Blog\Api\Data\PostInterface $Post);
 
@@ -46,9 +39,7 @@ interface PostRepositoryInterface
      * Delete Post by ID.
      *
      * @param int $PostId
-     * @return bool true on success
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @return bool
      */
     public function deleteById($PostId);
 }
